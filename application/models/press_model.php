@@ -26,12 +26,9 @@ return $query;
 }
 public function edit($id,$name,$description,$image,$video)
 {
-if($image=="")
-{
-$image=$this->press_model->getimagebyid($id);
-$image=$image->image;
-}
-$data=array("name" => $name,"description" => $description,"image" => $image,"video" => $video);
+$data=array("name" => $name,"description" => $description,"video" => $video);
+if($image != "")
+  $data['image']=$image;
 $this->db->where( "id", $id );
 $query=$this->db->update( "nayabackend_press", $data );
 return 1;
@@ -48,7 +45,7 @@ return $query;
 }
 public function getdropdown()
 {
-$query=$this->db->query("SELECT * FROM `nayabackend_press` ORDER BY `id` 
+$query=$this->db->query("SELECT * FROM `nayabackend_press` ORDER BY `id`
                     ASC")->row();
 $return=array(
 "" => "Select Option"

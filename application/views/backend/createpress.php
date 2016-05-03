@@ -10,16 +10,24 @@
 </div>
 </div>
 <div class="row">
+  <label>description</label>
 <div class="input-field col s12">
-<textarea name="description" class="materialize-textarea" length="400"><?php echo set_value( 'description');?></textarea>
-<label>description</label>
+<textarea id="some-textarea" name="description" class="materialize-textarea" length="400"><?php echo set_value( 'description');?></textarea>
+
 </div>
 </div>
 <div class="row">
-<div class="input-field col s6">
-<label for="image">image</label>
-<input type="text" id="image" name="image" value='<?php echo set_value('image');?>'>
-</div>
+  <span>750 X 750</span>
+  <div class="file-field input-field col m6 s12">
+    <div class="btn blue darken-4">
+      <span>Image</span>
+      <input name="image" type="file" multiple>
+    </div>
+    <div class="file-path-wrapper">
+      <input class="file-path validate" type="text" placeholder="Upload one or more files" value="<?php echo set_value('image');?>">
+
+    </div>
+  </div>
 </div>
 <div class="row">
 <div class="input-field col s6">

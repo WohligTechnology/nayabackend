@@ -48,8 +48,8 @@ return $query;
 }
 public function getdropdown()
 {
-$query=$this->db->query("SELECT * FROM `nayabackend_collection` ORDER BY `id` 
-                    ASC")->row();
+$query=$this->db->query("SELECT * FROM `nayabackend_collection` ORDER BY `id`
+                    ASC")->result();
 $return=array(
 "" => "Select Option"
 );

@@ -43,13 +43,13 @@ return $query;
 }
 public function getimagebyid($id)
 {
-$query=$this->db->query("SELECT `image` FROM `nayabackend_collectioncat` WHERE `id`='$id'")->row();
-return $query;
+// $query=$this->db->query("SELECT `image` FROM `nayabackend_collectioncat` WHERE `id`='$id'")->row();
+// return $query;
 }
 public function getdropdown()
 {
-$query=$this->db->query("SELECT * FROM `nayabackend_collectioncat` ORDER BY `id` 
-                    ASC")->row();
+$query=$this->db->query("SELECT * FROM `nayabackend_collectioncat` ORDER BY `id`
+                    ASC")->result();
 $return=array(
 "" => "Select Option"
 );
