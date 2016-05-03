@@ -3,6 +3,13 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class press_model extends CI_Model
 {
+
+public function getpress()
+{
+$query= $this->db->query("SELECT `id`, `name`, `description`, `image`, `video` FROM `nayabackend_press` WHERE 1")->result();
+return $query;
+}
+
 public function create($name,$description,$image,$video)
 {
 $data=array("name" => $name,"description" => $description,"image" => $image,"video" => $video);

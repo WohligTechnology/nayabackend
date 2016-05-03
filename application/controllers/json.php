@@ -1,5 +1,5 @@
 <?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
-class Json extends CI_Controller 
+class Json extends CI_Controller
 {function getallcontact()
 {
 $elements=array();
@@ -196,6 +196,17 @@ public function getsinglepress()
 {
 $id=$this->input->get_post("id");
 $data["message"]=$this->press_model->getsinglepress($id);
+$this->load->view("json",$data);
+}
+public function getcollections()
+{
+$id=$this->input->get_post("id");
+$data["message"]=$this->collection_model->getcollections($id);
+$this->load->view("json",$data);
+}
+public function getpress()
+{
+$data["message"]=$this->press_model->getpress();
 $this->load->view("json",$data);
 }
 function getallcollectioncat()
