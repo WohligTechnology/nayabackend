@@ -3,6 +3,22 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class contact_model extends CI_Model
 {
+
+  public function contactSubmit($name, $phone, $email, $message)
+  {
+    if(!empty($email) && !empty($name))
+    {
+  $query = $this->db->query("INSERT INTO `nayabackend_contact`(`name`, `email`, `phone`, `message`) VALUES ('$name','$email','$phone','$message')");
+  $obj = new stdClass();
+  $obj->value = true;
+  }
+  else {
+    $obj = new stdClass();
+    $obj->value = false;
+    }
+    return $obj;
+  }
+
 public function create($name,$email,$phone,$message)
 {
 $data=array("name" => $name,"email" => $email,"phone" => $phone,"message" => $message);
@@ -48,7 +64,7 @@ return $query;
 }
 public function getdropdown()
 {
-$query=$this->db->query("SELECT * FROM `nayabackend_contact` ORDER BY `id` 
+$query=$this->db->query("SELECT * FROM `nayabackend_contact` ORDER BY `id`
                     ASC")->row();
 $return=array(
 "" => "Select Option"

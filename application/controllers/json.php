@@ -198,6 +198,18 @@ $id=$this->input->get_post("id");
 $data["message"]=$this->press_model->getsinglepress($id);
 $this->load->view("json",$data);
 }
+
+public function contactSubmit()
+{
+    $data = json_decode(file_get_contents('php://input'), true);
+    $name = $data['name'];
+    $phone = $data['phone'];
+    $email = $data['email'];
+    $message = $data['message'];
+  $data['message'] = $this->contact_model->contactSubmit($name, $phone, $email, $message);
+    $this->load->view('json', $data);
+}
+
 public function getcollections()
 {
 $id=$this->input->get_post("id");
