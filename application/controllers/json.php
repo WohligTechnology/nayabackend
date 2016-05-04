@@ -221,6 +221,11 @@ public function getpress()
 $data["message"]=$this->press_model->getpress();
 $this->load->view("json",$data);
 }
+public function getslider()
+{
+$data["message"]=$this->homeslide_model->getslider();
+$this->load->view("json",$data);
+}
 function getallcollectioncat()
 {
 $elements=array();

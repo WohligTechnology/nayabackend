@@ -20,6 +20,186 @@ class Site extends CI_Controller
 		if(!in_array($accesslevel,$access))
 			redirect( base_url() . 'index.php/site?alerterror=You do not have access to this page. ', 'refresh' );
 	}
+	public function viewhomeslide()
+	{
+			$access = array('1');
+			$this->checkaccess($access);
+			$data['page'] = 'viewhomeslide';
+			$data['base_url'] = site_url('site/viewhomeslidejson');
+			$data['title'] = 'View homeslide';
+			$this->load->view('template', $data);
+	}
+	public function viewhomeslidejson()
+	{
+			$elements = array();
+			$elements[0] = new stdClass();
+			$elements[0]->field = '`fynx_homeslide`.`id`';
+			$elements[0]->sort = '1';
+			$elements[0]->header = 'ID';
+			$elements[0]->alias = 'id';
+			$elements[1] = new stdClass();
+			$elements[1]->field = '`fynx_homeslide`.`name`';
+			$elements[1]->sort = '1';
+			$elements[1]->header = 'Name';
+			$elements[1]->alias = 'name';
+			$elements[2] = new stdClass();
+			$elements[2]->field = '`fynx_homeslide`.`link`';
+			$elements[2]->sort = '1';
+			$elements[2]->header = 'Link';
+			$elements[2]->alias = 'link';
+			$elements[3] = new stdClass();
+			$elements[3]->field = '`fynx_homeslide`.`sorder`';
+			$elements[3]->sort = '1';
+			$elements[3]->header = 'Order';
+			$elements[3]->alias = 'sorder';
+			$elements[4] = new stdClass();
+			$elements[4]->field = '`fynx_homeslide`.`status`';
+			$elements[4]->sort = '1';
+			$elements[4]->header = 'Status';
+			$elements[4]->alias = 'status';
+			$elements[5] = new stdClass();
+			$elements[5]->field = '`fynx_homeslide`.`image`';
+			$elements[5]->sort = '1';
+			$elements[5]->header = 'Image';
+			$elements[5]->alias = 'image';
+			$elements[6] = new stdClass();
+			$elements[6]->field = '`fynx_homeslide`.`template`';
+			$elements[6]->sort = '1';
+			$elements[6]->header = 'Template';
+			$elements[6]->alias = 'template';
+			$elements[7] = new stdClass();
+			$elements[7]->field = '`fynx_homeslide`.`class`';
+			$elements[7]->sort = '1';
+			$elements[7]->header = 'Class';
+			$elements[7]->alias = 'class';
+			$elements[8] = new stdClass();
+			$elements[8]->field = '`fynx_homeslide`.`text`';
+			$elements[8]->sort = '1';
+			$elements[8]->header = 'Text';
+			$elements[8]->alias = 'text';
+			$elements[9] = new stdClass();
+			$elements[9]->field = '`fynx_homeslide`.`centeralign`';
+			$elements[9]->sort = '1';
+			$elements[9]->header = 'Center Align';
+			$elements[9]->alias = 'centeralign';
+			$search = $this->input->get_post('search');
+			$pageno = $this->input->get_post('pageno');
+			$orderby = $this->input->get_post('orderby');
+			$orderorder = $this->input->get_post('orderorder');
+			$maxrow = $this->input->get_post('maxrow');
+			if ($maxrow == '') {
+					$maxrow = 20;
+			}
+			if ($orderby == '') {
+					$orderby = 'id';
+					$orderorder = 'ASC';
+			}
+			$data['message'] = $this->chintantable->query($pageno, $maxrow, $orderby, $orderorder, $search, $elements, 'FROM `fynx_homeslide`');
+			$this->load->view('json', $data);
+	}
+
+	public function createhomeslide()
+	{
+	$access=array("1");
+	$this->checkaccess($access);
+	$data["page"]="createhomeslide";
+	  // $data['collection'] = $this->collectioncat_model->getdropdown();
+	$data["title"]="Create homeslide";
+	$this->load->view("template",$data);
+	}
+	public function createhomeslidesubmit()
+	{
+	$access=array("1");
+	$this->checkaccess($access);
+	$this->form_validation->set_rules("name","name","trim");
+	$this->form_validation->set_rules("image","image","trim");
+	if($this->form_validation->run()==FALSE)
+	{
+	$data["alerterror"]=validation_errors();
+	$data["page"]="createhomeslide";
+	$data["title"]="Create homeslide";
+	$this->load->view("template",$data);
+	}
+	else
+	{
+
+	$sorder=$this->input->get_post("sorder");
+	$config['upload_path'] = './uploads/';
+					$config['allowed_types'] = 'gif|jpg|png';
+					$this->load->library('upload', $config);
+					$filename = 'image';
+					$image = '';
+					if ($this->upload->do_upload($filename)) {
+							$uploaddata = $this->upload->data();
+							$image = $uploaddata['file_name'];
+					}
+	if($this->homeslide_model->create($sorder,$image)==0)
+	$data["alerterror"]="New collection could not be created.";
+	else
+	$data["alertsuccess"]="homeslide created Successfully.";
+	$data["redirect"]="site/viewhomeslide";
+	$this->load->view("redirect",$data);
+	}
+	}
+	public function edithomeslide()
+	{
+			$access = array('1');
+			$this->checkaccess($access);
+			$data['page'] = 'edithomeslide';
+			// $data['status'] = $this->user_model->getstatusdropdown();
+			$data['title'] = 'Edit homeslide';
+			$data['before'] = $this->homeslide_model->beforeedit($this->input->get('id'));
+			$this->load->view('template', $data);
+	}
+	public function edithomeslidesubmit()
+	{
+			$access = array('1');
+			$this->checkaccess($access);
+			$this->form_validation->set_rules('id', 'ID', 'trim');
+			$this->form_validation->set_rules('image', 'Image', 'trim');
+			if ($this->form_validation->run() == false) {
+					$data['alerterror'] = validation_errors();
+					$data['page'] = 'edithomeslide';
+					// $data['status'] = $this->user_model->getstatusdropdown();
+					$data['title'] = 'Edit homeslide';
+					$data['before'] = $this->homeslide_model->beforeedit($this->input->get('id'));
+					$this->load->view('template', $data);
+			} else {
+					$id = $this->input->get_post('id');
+					$sorder = $this->input->get_post('sorder');
+					$image = $this->input->get_post('image');
+					$config['upload_path'] = './uploads/';
+					            $config['allowed_types'] = 'gif|jpg|png';
+					            $this->load->library('upload', $config);
+					            $filename = 'image';
+					            $image = '';
+					            if ($this->upload->do_upload($filename)) {
+					                $uploaddata = $this->upload->data();
+					                $image = $uploaddata['file_name'];
+					            }
+					            if ($image == '') {
+					                $image = $this->homeslide_model->getimagebyid($id);
+					                    // print_r($image);
+					                     $image = $image->image;
+					            }
+		if ($this->homeslide_model->edit($id, $sorder, $image) == 0) {
+	$data['alerterror'] = 'New homeslide could not be Updated.';
+} else {
+	$data['alertsuccess'] = 'homeslide Updated Successfully.';
+}
+					$data['redirect'] = 'site/viewhomeslide';
+					$this->load->view('redirect', $data);
+			}
+	}
+	public function deletehomeslide()
+	{
+			$access = array('1');
+			$this->checkaccess($access);
+			$this->homeslide_model->delete($this->input->get('id'));
+			$data['redirect'] = 'site/viewhomeslide';
+			$this->load->view('redirect', $data);
+	}
+
     public function getOrderingDone()
     {
         $orderby=$this->input->get("orderby");
