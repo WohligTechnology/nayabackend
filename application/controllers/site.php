@@ -1308,6 +1308,7 @@ else
 {
 $id=$this->input->get_post("id");
 $name=$this->input->get_post("name");
+$description=$this->input->get_post("description");
 $config['upload_path'] = './uploads/';
 				$config['allowed_types'] = 'gif|jpg|png';
 				$this->load->library('upload', $config);
@@ -1317,7 +1318,7 @@ $config['upload_path'] = './uploads/';
 						$uploaddata = $this->upload->data();
 						$image = $uploaddata['file_name'];
 				}
-if($this->collectioncat_model->create($name,$image)==0)
+if($this->collectioncat_model->create($name,$description,$image)==0)
 $data["alerterror"]="New collectioncat could not be created.";
 else
 $data["alertsuccess"]="collectioncat created Successfully.";
@@ -1352,6 +1353,7 @@ else
 {
 $id=$this->input->get_post("id");
 $name=$this->input->get_post("name");
+$description=$this->input->get_post("description");
 $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'gif|jpg|png';
             $this->load->library('upload', $config);
@@ -1366,7 +1368,7 @@ $config['upload_path'] = './uploads/';
                     // print_r($image);
                      $image = $image->image;
             }
-if($this->collectioncat_model->edit($id,$name,$image)==0)
+if($this->collectioncat_model->edit($id,$name,$description,$image)==0)
 $data["alerterror"]="New collectioncat could not be Updated.";
 else
 $data["alertsuccess"]="collectioncat Updated Successfully.";

@@ -3,9 +3,9 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class collectioncat_model extends CI_Model
 {
-public function create($name,$image)
+public function create($name,$description,$image)
 {
-$data=array("name" => $name,"image" => $image);
+$data=array("name" => $name,"description" => $description,"image" => $image);
 $query=$this->db->insert( "nayabackend_collectioncat", $data );
 $id=$this->db->insert_id();
 if(!$query)
@@ -24,14 +24,14 @@ $this->db->where("id",$id);
 $query=$this->db->get("nayabackend_collectioncat")->row();
 return $query;
 }
-public function edit($id,$name,$image)
+public function edit($id,$name,$description,$image)
 {
 if($image=="")
 {
 $image=$this->collectioncat_model->getimagebyid($id);
 $image=$image->image;
 }
-$data=array("name" => $name,"image" => $image);
+$data=array("name" => $name,"description" => $description,"image" => $image);
 $this->db->where( "id", $id );
 $query=$this->db->update( "nayabackend_collectioncat", $data );
 return 1;

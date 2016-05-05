@@ -33,6 +33,12 @@
 			</div>
 
 		</div>
+		<div class="row">
+		<div class="col s12 m6">
+		<label>description</label>
+		<textarea id="some-textarea" name="description" placeholder="Enter text ..."><?php echo set_value( 'description',$before->description);?></textarea>
+		</div>
+		</div>
 <div class="row">
 <div class="col s6">
 <button type="submit" class="btn btn-primary waves-effect waves-light  blue darken-4">Save</button>

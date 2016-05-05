@@ -23,6 +23,13 @@
   </div>
 </div>
 <div class="row">
+  <label>description</label>
+<div class="input-field col s12">
+<textarea id="some-textarea" name="description" class="materialize-textarea" length="400"><?php echo set_value( 'description');?></textarea>
+
+</div>
+</div>
+<div class="row">
 <div class="col s12 m6">
 <button type="submit" class="btn btn-primary waves-effect waves-light blue darken-4">Save</button>
 <a href="<?php echo site_url("site/viewcollectioncat"); ?>" class="btn btn-secondary waves-effect waves-light red">Cancel</a>
