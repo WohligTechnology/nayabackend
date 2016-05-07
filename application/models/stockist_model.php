@@ -4,14 +4,14 @@ exit( "No direct script access allowed" );
 class stockist_model extends CI_Model
 {
 
-public function getcollections($id)
+public function getstockist($name)
 {
-  if(!empty($id))
+  if(!empty($name))
   {
-$query= $this->db->query("SELECT `id`, `collection`, `name`, `image`, `description`, `facebook`, `instagram`, `pinterest` FROM `nayabackend_collection` WHERE `collection`=$id")->result();
+$query= $this->db->query("SELECT `id`, `city`, `title`, `address`, `phone`, `fax` FROM `stockist` WHERE  `city`='$name'")->result();
   }
   else {
-  $query= $this->db->query("SELECT `id`, `name`, `image` FROM `nayabackend_collectioncat` WHERE 1")->result();
+  $query= $this->db->query("SELECT DISTINCT `city` FROM `stockist` WHERE 1")->result();
   }
 
   return $query;

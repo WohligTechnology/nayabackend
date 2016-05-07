@@ -221,6 +221,12 @@ public function getpress()
 $data["message"]=$this->press_model->getpress();
 $this->load->view("json",$data);
 }
+public function getstockist()
+{
+  $name=$this->input->get_post("name");
+$data["message"]=$this->stockist_model->getstockist($name);
+$this->load->view("json",$data);
+}
 public function getslider()
 {
 $data["message"]=$this->homeslide_model->getslider();
