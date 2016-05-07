@@ -1385,5 +1385,145 @@ $data["redirect"]="site/viewcollectioncat";
 $this->load->view("redirect",$data);
 }
 
+public function viewstockist()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewstockist";
+$data["base_url"]=site_url("site/viewstockistjson");
+$data["title"]="View Stockist";
+$this->load->view("template",$data);
+}
+function viewstockistjson()
+{
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`stockist`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="id";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`stockist`.`city`";
+$elements[1]->sort="1";
+$elements[1]->header="city";
+$elements[1]->alias="city";
+$elements[2]=new stdClass();
+$elements[2]->field="`stockist`.`title`";
+$elements[2]->sort="1";
+$elements[2]->header="title";
+$elements[2]->alias="title";
+
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `stockist`");
+$this->load->view("json",$data);
+}
+
+public function createstockist()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="createstockist";
+  $data['city'] = $this->stockist_model->getdropdown();
+$data["title"]="Create stockist";
+$this->load->view("template",$data);
+}
+public function createstockistsubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("title","title","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="createstockist";
+$data["title"]="Create Stockist";
+$this->load->view("template",$data);
+}
+else
+{
+$city=$this->input->get_post("city");
+$citytxt=$this->input->get_post("citytxt");
+if(!empty($citytxt))
+{
+	$cityname = $citytxt;
+}
+else {
+	$cityname = $city;
+}
+$title=$this->input->get_post("title");
+// $image=$this->input->get_post("image");
+$address=$this->input->get_post("address");
+$phone=$this->input->get_post("phone");
+$fax=$this->input->get_post("fax");
+if($this->stockist_model->create($cityname,$title,$address,$phone,$fax)==0)
+$data["alerterror"]="New stockist could not be created.";
+else
+$data["alertsuccess"]="stockist created Successfully.";
+$data["redirect"]="site/viewstockist";
+$this->load->view("redirect",$data);
+}
+}
+public function editstockist()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="editstockist";
+$data["title"]="Edit stockist";
+  $data['city'] = $this->stockist_model->getdropdown();
+$data["before"]=$this->stockist_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+public function editstockistsubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("id","id","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="editstockist";
+$data["title"]="Edit stockist";
+$data["before"]=$this->stockist_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$city=$this->input->get_post("city");
+$title=$this->input->get_post("title");
+// $image=$this->input->get_post("image");
+$address=$this->input->get_post("address");
+$phone=$this->input->get_post("phone");
+$fax=$this->input->get_post("fax");
+if($this->stockist_model->edit($id,$city,$title,$address,$phone,$fax)==0)
+$data["alerterror"]="New stockist could not be Updated.";
+else
+$data["alertsuccess"]="stockist Updated Successfully.";
+$data["redirect"]="site/viewstockist";
+$this->load->view("redirect",$data);
+}
+}
+public function deletestockist()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->stockist_model->delete($this->input->get("id"));
+$data["redirect"]="site/viewstockist";
+$this->load->view("redirect",$data);
+}
+
 }
 ?>

@@ -35,7 +35,7 @@
 
 </div>
 </div>
-<div class="row">
+<!-- <div class="row">
 <div class="input-field col s6">
 <label for="facebook">facebook</label>
 <input type="text" id="facebook" name="facebook" value='<?php echo set_value('facebook');?>'>
@@ -52,7 +52,7 @@
 <label for="pinterest">pinterest</label>
 <input type="text" id="pinterest" name="pinterest" value='<?php echo set_value('pinterest');?>'>
 </div>
-</div>
+</div> -->
 <div class="row">
 <div class="col s12 m6">
 <button type="submit" class="btn btn-primary waves-effect waves-light blue darken-4">Save</button>

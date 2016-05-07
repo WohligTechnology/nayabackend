@@ -44,7 +44,7 @@
 <textarea id="some-textarea" name="description" placeholder="Enter text ..."><?php echo set_value( 'description',$before->description);?></textarea>
 </div>
 </div>
-<div class="row">
+<!-- <div class="row">
 <div class="input-field col s6">
 <label for="facebook">facebook</label>
 <input type="text" id="facebook" name="facebook" value='<?php echo set_value('facebook',$before->facebook);?>'>
@@ -61,7 +61,7 @@
 <label for="pinterest">pinterest</label>
 <input type="text" id="pinterest" name="pinterest" value='<?php echo set_value('pinterest',$before->pinterest);?>'>
 </div>
-</div>
+</div> -->
 <div class="row">
 <div class="col s6">
 <button type="submit" class="btn btn-primary waves-effect waves-light  blue darken-4">Save</button>
