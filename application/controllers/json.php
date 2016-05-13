@@ -216,6 +216,12 @@ $id=$this->input->get_post("id");
 $data["message"]=$this->collection_model->getcollections($id);
 $this->load->view("json",$data);
 }
+public function getcollectionscat()
+{
+$id=$this->input->get_post("id");
+$data["message"]=$this->collection_model->getcollectionscat($id);
+$this->load->view("json",$data);
+}
 public function getpress()
 {
 $data["message"]=$this->press_model->getpress();
@@ -223,7 +229,7 @@ $this->load->view("json",$data);
 }
 public function getstockist()
 {
-  $name=$this->input->get_post("name");
+$name=$this->input->get_post("name");
 $data["message"]=$this->stockist_model->getstockist($name);
 $this->load->view("json",$data);
 }

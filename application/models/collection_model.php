@@ -6,16 +6,21 @@ class collection_model extends CI_Model
 
 public function getcollections($id)
 {
-  if(!empty($id))
-  {
 $query= $this->db->query("SELECT `id`, `collection`, `name`, `image`, `description`, `facebook`, `instagram`, `pinterest` FROM `nayabackend_collection` WHERE `collection`=$id")->result();
-  }
-  else {
-  $query= $this->db->query("SELECT `id`, `name`, `image` FROM `nayabackend_collectioncat` WHERE 1")->result();
-  }
-
   return $query;
 }
+public function getcollectionscat($id)
+{
+  if(!empty($id))
+  {
+    $query= $this->db->query("SELECT `id`, `name`, `description`, `image` FROM `nayabackend_collectioncat` WHERE `id`=$id")->row();
+  }
+  else {
+    $query= $this->db->query("SELECT `id`, `name`, `description`, `image` FROM `nayabackend_collectioncat` WHERE 1")->result();
+  }
+  return $query;
+}
+
 public function create($collection,$name,$image,$description,$facebook,$instagram,$pinterest)
 {
 $data=array("collection" => $collection,"name" => $name,"image" => $image,"description" => $description,"facebook" => $facebook,"instagram" => $instagram,"pinterest" => $pinterest);
