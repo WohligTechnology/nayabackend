@@ -8,7 +8,7 @@ public function getstockist($name)
 {
   if(!empty($name))
   {
-$query= $this->db->query("SELECT `id`, `city`, `title`, `address`, `phone`, `fax` FROM `stockist` WHERE  `city`='$name'")->result();
+$query= $this->db->query("SELECT `id`, `city`, `title`, `address`,`link`, `phone`, `fax` FROM `stockist` WHERE  `city`='$name'")->result();
   }
   else {
   $query= $this->db->query("SELECT DISTINCT `city` FROM `stockist` WHERE 1")->result();
@@ -16,9 +16,9 @@ $query= $this->db->query("SELECT `id`, `city`, `title`, `address`, `phone`, `fax
 
   return $query;
 }
-public function create($cityname,$title,$address,$phone,$fax)
+public function create($cityname,$title,$address,$phone,$fax,$link)
 {
-$data=array("city" => $cityname,"title" => $title,"address" => $address,"phone" => $phone,"fax" => $fax);
+$data=array("city" => $cityname,"title" => $title,"address" => $address,"phone" => $phone,"fax" => $fax,"link" => $link);
 $query=$this->db->insert( "stockist", $data );
 $id=$this->db->insert_id();
 if(!$query)
@@ -33,9 +33,9 @@ $query=$this->db->get("stockist")->row();
 return $query;
 }
 
-public function edit($id,$city,$title,$address,$phone,$fax)
+public function edit($id,$city,$title,$address,$phone,$fax,$link)
 {
-$data=array("city" => $city,"title" => $title,"address" => $address,"phone" => $phone,"fax" => $fax);
+$data=array("city" => $city,"title" => $title,"address" => $address,"phone" => $phone,"fax" => $fax,"link" => $link);
 $this->db->where( "id", $id );
 $query=$this->db->update( "stockist", $data );
 return 1;

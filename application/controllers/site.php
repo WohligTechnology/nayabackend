@@ -1463,12 +1463,13 @@ if(!empty($citytxt))
 else {
 	$cityname = $city;
 }
+$link=$this->input->get_post("link");
 $title=$this->input->get_post("title");
 // $image=$this->input->get_post("image");
 $address=$this->input->get_post("address");
 $phone=$this->input->get_post("phone");
 $fax=$this->input->get_post("fax");
-if($this->stockist_model->create($cityname,$title,$address,$phone,$fax)==0)
+if($this->stockist_model->create($cityname,$title,$address,$phone,$fax,$link)==0)
 $data["alerterror"]="New stockist could not be created.";
 else
 $data["alertsuccess"]="stockist created Successfully.";
@@ -1508,7 +1509,8 @@ $title=$this->input->get_post("title");
 $address=$this->input->get_post("address");
 $phone=$this->input->get_post("phone");
 $fax=$this->input->get_post("fax");
-if($this->stockist_model->edit($id,$city,$title,$address,$phone,$fax)==0)
+$link=$this->input->get_post("link");
+if($this->stockist_model->edit($id,$city,$title,$address,$phone,$fax,$link)==0)
 $data["alerterror"]="New stockist could not be Updated.";
 else
 $data["alertsuccess"]="stockist Updated Successfully.";

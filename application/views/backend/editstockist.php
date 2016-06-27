@@ -15,6 +15,12 @@
        </div>
        <div class="row">
        <div class="input-field col s6">
+       <label for="name">link</label>
+       <input type="text" id="link" name="link" value='<?php echo set_value('link',$before->link);?>'>
+       </div>
+       </div>
+       <div class="row">
+       <div class="input-field col s6">
        <label for="name">title</label>
        <input type="text" id="title" name="title" value='<?php echo set_value('title',$before->title);?>'>
        </div>
